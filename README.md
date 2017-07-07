@@ -1,3 +1,5 @@
+# Usage
+
     usage: quiz-generator.py [-h] [--input_dir dir_path]
     
     Compile a singlular LaTeX quiz sheet from intput questions.

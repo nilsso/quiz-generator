@@ -3,7 +3,8 @@ all:
 	pdflatex generated-quiz.tex
 
 readme:
-	python quiz-generator.py -h | sed 's/^/    /' > README.md
+	echo -e "# Usage\n" > README.md
+	python quiz-generator.py -h | sed 's/^/    /' >> README.md
 
 .PHONY: clean
 
