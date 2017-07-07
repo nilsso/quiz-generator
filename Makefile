@@ -1,6 +1,6 @@
 all:
-	python quiz-generator.py -r
-	pdflatex *.tex
+	python quiz-generator.py -r >> quiz.tex
+	pdflatex quiz.tex
 
 define readme_append=
 echo -e $(1) >> README.md

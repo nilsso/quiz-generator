@@ -3,4 +3,5 @@
 *.log
 *.tex
 *.pdf
-generated-quiz.tex
+quiz.tex
+quiz.pdf
