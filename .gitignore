@@ -1,0 +1,6 @@
+*.sw*
+*.aux
+*.log
+*.tex
+*.pdf
+generated-quiz.tex
