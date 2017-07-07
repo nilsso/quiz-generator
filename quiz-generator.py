@@ -48,7 +48,7 @@ def generate_quiz(questions):
 # Application
 
 # Command line arguments
-parser = ap(description="Compile a singlular LaTeX quiz sheet from intput "
+parser = ap(description="Compile a singlular LaTeX quiz sheet from input "
         "questions.")
 parser.add_argument("--input_dir",
         default="./input_dir",
