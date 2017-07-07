@@ -16,8 +16,7 @@ Evaluate:
 Evaluate the following without use of a calculator:
 \[\coth(\ln 6)\]
 ---
-Determine if the given function \(y\) is a solution of the differential equation
-\(y''\). Assume that \(C\) is an arbitrary constant.
+Determine if the given function \(y\) is a solution of the differential equation \(y''\). Assume that \(C\) is an arbitrary constant.
 \[y=C_1\sin 5t+C_2\cos 5t;\quad y''(t)+25y=0\]
 ---
 Find the general solution of the equation:

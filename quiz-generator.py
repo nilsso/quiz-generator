@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from os import walk
 from os.path import join
+import random
 import argparse
 
 # ------------------------------------------------------------------------------
@@ -22,29 +23,29 @@ def parse_file(filepath, delim="---"):
     file = open(filepath)
     contents = file.read()
     file.close()
-    questions = [ x for x in contents.split(delim) if x ]
+    questions = [
+            [ y for y in x.split("\n") if y ]
+            for x in contents.split(delim) if x ]
     return questions
 
-# Generate LaTeX output given a list of input questions
-def generate_quiz(questions):
+#! Generate LaTeX output given a list of input questions
+def generate_quiz(questions, randomize, head, foot):
     # TODO: Implement additional arguments for triggering functions like
     # randomizing questions, selecting only a sample of the quests, etc. (bonus
     # features)
+    # TODO: Possibly pull from template header/footer file(s) that set all the
+    # packages, macros, and such.
 
     # These strings intentionally have no indenting
-    output =\
-r"""\documentclass[fleqn]{article}
-\usepackage{amsmath}
-\setlength{\mathindent}{0pt}
-\DeclareMathOperator{\csch}{csch}
-\begin{document}
-\begin{enumerate}
-"""
+    output = head
+    if randomize:
+        random.shuffle(questions)
     for question in questions:
-        output += r"\item " + question.strip() + "\n\n"
-    output +=\
-r"""\end{enumerate}
-\end{document}"""
+        output += "\\item "
+        for x in question:
+            output += x + "\n"
+        output += "\n"
+    output += foot
     return output
 
 # ------------------------------------------------------------------------------
@@ -63,6 +64,9 @@ parser.add_argument("--out_file",
         default="./generated-quiz.tex",
         metavar="PATH",
         help="output file path")
+parser.add_argument("-r", "--randomize",
+        help="randomize questions",
+        action="store_true")
 args = parser.parse_args()
 
 # Get all .qs files
@@ -73,8 +77,45 @@ questions = []
 for filepath in qs_files:
     questions.extend(parse_file(filepath))
 
+head=\
+r"""\documentclass[fleqn]{article}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\setlength{\mathindent}{0pt}
+\setlength{\delimitershortfall}{0pt}
+
+\def\deriv{\frac{d}{dx}}
+
+\DeclareMathOperator{\arccsc}{arccsc}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arccot}
+
+\DeclareMathOperator{\csch}{csch}
+\DeclareMathOperator{\sech}{sech}
+
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arccsch}{arccsch}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccoth}{arccoth}
+
+\begin{document}
+\begin{multicols}{2}
+\begin{enumerate}
+
+"""
+
+foot=\
+r"""\end{enumerate}
+\end{multicols}
+\end{document}"""
+
 # Generate quiz output file contents
-output = generate_quiz(questions)
+output = generate_quiz(questions, args.randomize, head, foot)
 
 # Write file
 file = open(args.out_file,"w")
