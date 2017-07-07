@@ -34,11 +34,12 @@ def generate_quiz(questions):
     r"""\documentclass[fleqn]{article}
     \usepackage{amsmath}
     \setlength{\mathindent}{0pt}
+    \DeclareMathOperator{\csch}{csch}
     \begin{document}
     \begin{enumerate}
     """
     for question in questions:
-        output += r"\item " + question.strip() + '\n\n'
+        output += r"\item " + question.strip() + "\n\n"
     output +=\
     r"""\end{enumerate}
     \end{document}"""
@@ -50,14 +51,18 @@ def generate_quiz(questions):
 # Command line arguments
 parser = ap(description="Compile a singlular LaTeX quiz sheet from input "
         "questions.")
-parser.add_argument("--input_dir",
-        default="./input_dir",
-        metavar="dir_path",
-        help="input file directory")
+parser.add_argument("--in_dir",
+        default="./in",
+        metavar="PATH",
+        help="input directory path")
+parser.add_argument("--out_file",
+        default="./generated-quiz.tex",
+        metavar="PATH",
+        help="output file path")
 args = parser.parse_args()
 
 # Get all .qs files
-qs_files = agregate_files(args.input_dir)
+qs_files = agregate_files(args.in_dir)
 
 # Get list of questions
 questions = []
@@ -68,7 +73,7 @@ for filepath in qs_files:
 output = generate_quiz(questions)
 
 # Write file
-file = open("generated-quiz.tex","w")
+file = open(args.out_file,"w")
 file.write(output)
 file.close()
 

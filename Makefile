@@ -1,6 +1,6 @@
 all:
 	python quiz-generator.py
-	pdflatex generated-quiz.tex
+	pdflatex *.tex
 
 readme:
 	echo -e "# Usage\n" > README.md
@@ -9,4 +9,4 @@ readme:
 .PHONY: clean
 
 clean:
-	rm *.{aux,log,pdf}
+	rm *.{aux,log,tex,pdf}
