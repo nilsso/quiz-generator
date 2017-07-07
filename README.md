@@ -1,11 +1,10 @@
 # Usage
 
-    usage: quiz-generator.py [-h] [--input_dir DIR_PATH] [--output_dir DIR_PATH]
+    usage: quiz-generator.py [-h] [--in_dir PATH] [--out_file PATH]
     
     Compile a singlular LaTeX quiz sheet from input questions.
     
     optional arguments:
-      -h, --help            show this help message and exit
-      --input_dir DIR_PATH  input directory
-      --output_dir DIR_PATH
-                            output directory
+      -h, --help       show this help message and exit
+      --in_dir PATH    input directory path
+      --out_file PATH  output file path
