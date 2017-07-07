@@ -30,19 +30,21 @@ def generate_quiz(questions):
     # TODO: Implement additional arguments for triggering functions like
     # randomizing questions, selecting only a sample of the quests, etc. (bonus
     # features)
+
+    # These strings intentionally have no indenting
     output =\
-    r"""\documentclass[fleqn]{article}
-    \usepackage{amsmath}
-    \setlength{\mathindent}{0pt}
-    \DeclareMathOperator{\csch}{csch}
-    \begin{document}
-    \begin{enumerate}
-    """
+r"""\documentclass[fleqn]{article}
+\usepackage{amsmath}
+\setlength{\mathindent}{0pt}
+\DeclareMathOperator{\csch}{csch}
+\begin{document}
+\begin{enumerate}
+"""
     for question in questions:
         output += r"\item " + question.strip() + "\n\n"
     output +=\
-    r"""\end{enumerate}
-    \end{document}"""
+r"""\end{enumerate}
+\end{document}"""
     return output
 
 # ------------------------------------------------------------------------------
