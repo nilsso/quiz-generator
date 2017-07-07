@@ -6,5 +6,5 @@
     
     optional arguments:
       -h, --help       show this help message and exit
-      --in_dir PATH    input directory path
-      --out_file PATH  output file path
+      --in_dir PATH    input directory path (default: ./in)
+      --out_file PATH  output file path (default: ./generated-quiz.tex)

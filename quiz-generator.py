@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from os import walk
 from os.path import join
-from argparse import ArgumentParser as ap
+import argparse
 
 # ------------------------------------------------------------------------------
 # API
@@ -49,8 +49,10 @@ def generate_quiz(questions):
 # Application
 
 # Command line arguments
-parser = ap(description="Compile a singlular LaTeX quiz sheet from input "
-        "questions.")
+parser = argparse.ArgumentParser(
+        description="Compile a singlular LaTeX quiz sheet from input "
+        "questions.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("--in_dir",
         default="./in",
         metavar="PATH",
