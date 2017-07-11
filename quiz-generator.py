@@ -5,6 +5,8 @@ import random
 import argparse
 
 # Command line arguments
+# argparse Documentation:
+#   https://docs.python.org/3/library/argparse.html
 parser = argparse.ArgumentParser(
         description=("Compile a singlular LaTeX quiz sheet from input " +
             "questions. By default, pulls questions from any .qs files found in " +
@@ -23,19 +25,31 @@ parser.add_argument("-r", "--randomize",
 args = parser.parse_args()
 
 # Get all .qs files
+# os.walk Documentation:
+#   https://docs.python.org/2/library/os.html#os.walk
 qs_files = []
 for path, dirs, files in os.walk(args.input_path):
     qs_files.extend([ os.path.join(path, f) for f in files if f.endswith(".qs") ])
+    # Now using list comprehension:
+    #   http://www.secnetix.de/olli/Python/list_comprehensions.hawk
+    #   http://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/
 
 # Get list of problems
 problems = []
 for path in qs_files:
     with open(path) as f:
+        # Open file within scope (closes automatically once
+        # scope is left)
+        # Explanation of Python's 'with' statement:
+        #   http://effbot.org/zone/python-with-statement.htm
         problems.extend([
             [ line for line in problem.split("\n") if line ]
             for problem in f.read().split("---") if problem ])
+            # Using some more list comprehension
 
 # Output header
+# Defines some LaTeX math stuff, includes LaTeX libraries; establishes the
+# surrounding document, minus the actual content.
 header=r"""\documentclass[fleqn]{article}
 \usepackage{amsmath}
 \usepackage{enumitem}
@@ -68,11 +82,14 @@ header=r"""\documentclass[fleqn]{article}
 """
 
 # Output footer
+# Caps off the document (just after the content).
 footer=r"""\end{enumerate}
 \end{multicols}
 \end{document}"""
 
 # Generate output
+# Given the header, the content, and the footer, we now can build a single
+# monolithic string for the quiz. We store this in 'outout'.
 output = header
 if args.randomize:
     random.shuffle(problems)
@@ -83,7 +100,10 @@ for problem in problems:
     output += "\n"
 output += footer
 
-# Write output to file or stdout
+# Write 'output' to file or stdout
+# Because we're writing to stdout by default, it's up to the user to decide what
+# to do with it. It could be redirected to a new file via:
+# 'py quiz-generator.py > quiz.tex' (which is exactly what the Makefile does).
 if args.output_path:
     with open(args.output_path, "w") as f:
         f.write(output)
