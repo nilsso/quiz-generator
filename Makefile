@@ -1,5 +1,5 @@
 all:
-	python quiz-generator.py -r >> quiz.tex
+	python quiz-generator.py -r > quiz.tex
 	pdflatex quiz.tex
 
 define readme_append=
