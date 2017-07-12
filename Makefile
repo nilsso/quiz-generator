@@ -34,4 +34,5 @@ help:
 	$(call help)
 
 clean:
-	rm *.{aux,log,tex,pdf}
+	rm *.{aux,log}
+
