@@ -58,7 +58,7 @@ if source_files:
             # Explanation of Python's 'with' statement:
             #   http://effbot.org/zone/python-with-statement.htm
             problems.extend([
-                [ line for line in problem.split("\n") if line ]
+                [ line for line in problem.split("\n") if line and line[0] != '#' ]
                 for problem in f.read().split("---") if problem ])
                 # Using some more list comprehension
 

@@ -1,6 +1,21 @@
-all:
-	python quiz-generator.py -r > quiz.tex
-	pdflatex quiz.tex
+all: cumulative exam2
+
+define make_quiz=
+mkdir -p ./out
+python quiz-generator.py \
+-i $(1) \
+-o ./out/$(2) \
+--title $(3)
+(cd ./out && pdflatex $(2))
+endef
+
+cumulative:
+	$(call make_quiz,"./in","cumulative.tex","Cumulative Review")
+
+# Sections 8.1 to 8.8
+exam2:
+	$(eval files:="./in/8.1.qs,./in/8.2.qs")
+	$(call make_quiz,$(files),"exam2.tex","Exam 2 Review")
 
 define readme_append=
 echo -e $(1) >> README.md
@@ -34,5 +49,5 @@ help:
 	$(call help)
 
 clean:
-	rm *.{aux,log}
+	rm ./out/*
 
