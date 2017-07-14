@@ -1,140 +1,93 @@
-#!/usr/bin/python
-import os
+#!/usr/bin/env python
+import re
 import sys
 import random
 import argparse
 
-# Command line arguments
-# argparse Documentation:
-#   https://docs.python.org/3/library/argparse.html
-parser = argparse.ArgumentParser(
-        description=(r"""Compile a singular LaTeX quiz sheet from input
-        questions. By default, pulls questions from any .qs files found in a
-        local ./in directory and outputs to stdout. I made up .qs, it stands for
-        dot "questions", and should contain only LaTeX content for individual
-        problems. Problems are delimited by the sequence '---'."""))
-parser.add_argument("-i", "--input-path",
-        help="""Comma delineated list of input directory/file paths. Files will
-        be added and directories traversed for any .qs files to add (default:
-        './in')""",
-        metavar="PATH",
-        default="./in")
-parser.add_argument("-o", "--output-path",
-        help="""Output file path. If empty output to standard output (default:
-        empty)""",
-        metavar="PATH")
-parser.add_argument("-r", "--randomize",
-        help="Randomize questions (default: 'False')",
-        action="store_true")
-parser.add_argument("--title",
-        help="Document title (default: empty)",
-        metavar="STRING")
+parser = argparse.ArgumentParser()
+parser.add_argument("input",
+        help="input problem files",
+        nargs="+")
+parser.add_argument("-o","--output",
+        help="output file (default stdout)",
+        nargs="?",
+        type=argparse.FileType("w"),
+        default=sys.stdout)
+parser.add_argument("-t","--title",
+        help="quiz title",
+        metavar="TITLE",
+        default="Generic Quiz")
+parser.add_argument("-r","--randomize",
+        help="randomize problems",
+        action="store_true",
+        dest="randomize")
 args = parser.parse_args()
 
-# Get .qs files
-# TODO: Replace this bullshit with some proper regex/bash file selection
-source_files = []
-for f in args.input_path.split(","):
-    if f:
-        if os.path.isdir(args.input_path):
-            # Input path is a directory
-            # os.walk Documentation:
-            #   https://docs.python.org/2/library/os.html#os.walk
-            for path, dirs, files in os.walk(f):
-                source_files.extend([ os.path.join(path, g) for g in files if g.endswith(".qs") ])
-                # Now using list comprehension:
-                #   http://www.secnetix.de/olli/Python/list_comprehensions.hawk
-                #   http://treyhunner.com/2015/12/python-list-comprehensions-now-in-color/
-        else:
-            source_files.append(f)
-
-# Get list of problems
-problems = []
-if source_files:
-    for path in source_files:
-        with open(path) as f:
-            # Open file within scope (closes automatically once
-            # scope is left)
-            # Explanation of Python's 'with' statement:
-            #   http://effbot.org/zone/python-with-statement.htm
+pattern = re.compile(":::\s*(.*)\s*\n")
+problems=[]
+if args.input:
+    for _path in args.input:
+        with open(_path, "r") as _file:
+            _content = "\n".join([
+                l for l in
+                _file.read().splitlines() if l and l[0] != '#'])
+            _match = pattern.search(_content)
+            _source = _match and _match.group(1) or "Unknown"
+            _content = pattern.sub("", _content)
             problems.extend([
-                [ line for line in problem.split("\n") if line and line[0] != '#' ]
-                for problem in f.read().split("---") if problem ])
-                # Using some more list comprehension
+                [_source, _problem[0], (len(_problem) == 2) and _problem[1] or None]
+                for _problem in [ _qa_pair.split("\n===\n")
+                    for _qa_pair in _content.split("\n---\n")]])
 
-# ------------------------------------------------------------------------------
-# Construct output
+if args.randomize:
+    random.shuffle(problems)
 
-# Header
-# Defines some LaTeX math stuff, includes LaTeX libraries; establishes the
-# surrounding document, minus the actual content.
-output=r"""\documentclass[fleqn]{article}
-\usepackage{amsmath}
-\usepackage{enumitem}
-\usepackage{multicol}
+content_quiz = ""
+content_answers = ""
+problem_pattern = "\n\\item[%d.] %s\n"
+answer_pattern = "\n\\item[%d.] \\textit{(%s)}\n%s\n"
+for i, val in enumerate(problems):
+    content_quiz += problem_pattern % (i+1, val[1])
+    if val[2]:
+        content_answers += answer_pattern % (i+1, val[0], val[2])
+
+header=r"""\documentclass[fleqn]{article}
 \usepackage[a4paper,margin=1in]{geometry}
-\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\usepackage{amsmath}
+\usepackage{resizegather}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\setlength{\parindent}{0pt}
 \setlength{\mathindent}{0pt}
 \setlength{\delimitershortfall}{0pt}
-
 \def\deriv{\frac{d}{dx}}
-
 \DeclareMathOperator{\arccsc}{arccsc}
 \DeclareMathOperator{\arcsec}{arcsec}
 \DeclareMathOperator{\arccot}{arccot}
-
 \DeclareMathOperator{\csch}{csch}
 \DeclareMathOperator{\sech}{sech}
-
 \DeclareMathOperator{\arcsinh}{arcsinh}
 \DeclareMathOperator{\arccosh}{arccosh}
 \DeclareMathOperator{\arctanh}{arctanh}
 \DeclareMathOperator{\arccsch}{arccsch}
 \DeclareMathOperator{\arcsech}{arcsech}
 \DeclareMathOperator{\arccoth}{arccoth}
-
 \begin{document}
 """
 
-# Title
-if args.title:
-    output += r"\title{" + args.title + r"""}
-\date{}
-\author{}
-\maketitle
-"""
-
-# List of included files
-# if source_files:
-    # output += "(Including content from: " + ", ".join(source_files) + ")\n\n"
-
-# Content (problems)
-if problems:
-    output += r"""\begin{multicols}{2}
-\begin{enumerate}
-"""
-    if args.randomize:
-        random.shuffle(problems)
-    for problem in problems:
-        output += "\\item "
-        for line in problem:
-            output += line + "\n"
-        output += "\n"
-    output += r"""\end{enumerate}
-    \end{multicols}"""
-else:
-    output += "(There's nothing here!)"
-
-# Footer
-output += r"""
+footer=r"""
 \end{document}"""
 
-# Write 'output' to file or stdout
-# Because we're writing to stdout by default, it's up to the user to decide what
-# to do with it. It could be redirected to a new file via:
-# 'py quiz-generator.py > quiz.tex' (which is exactly what the Makefile does).
-if args.output_path:
-    with open(args.output_path, "w") as f:
-        f.write(output)
-else:
-    sys.stdout.write(output)
+args.output.write(
+        header+
+        "\\section*{"+args.title+" (Problems)}\n"+
+        "\\begin{multicols}{2}\n"+
+        "\\begin{itemize}\n"+content_quiz+"\\end{itemize}\n"+
+        "\\end{multicols}\n"+
+        "\\newpage\n"+
+        "\\section*{"+args.title+" (Answers)}\n"+
+        "\\begin{multicols}{2}\n"+
+        "\\begin{itemize}\n"+content_answers+"\\end{itemize}\n"+
+        "\\end{multicols}"+
+        footer)

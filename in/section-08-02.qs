@@ -1,40 +1,45 @@
-Evaluate:
+# ==============================================================================
+# Problems from handout:
+Evaluate
 \[\int xe^{3x}dx\]
 ---
-Evaluate:
+Evaluate
 \[\int\frac{\ln x}{x^2}dx\]
 ---
-Evaluate:
+Evaluate
 \[\int\arcsin x\ dx\]
 ---
-Evaluate:
+Evaluate
 \[\int x\sin x\ dx\]
 ---
-Evaluate:
+Evaluate
 \[\int x\sin x^2\ dx\]
 ---
-Evaluate:
+Evaluate
 \[\int x^2\sin 2x\ dx\]
 ---
-Evaluate:
+Evaluate
 \[\int x^3\cos 2x\ dx\]
 ---
-Evaluate:
+Evaluate
 \[\int e^{2x}\cos x\ dx\]
 ---
-Evaluate:
+Evaluate
 \[\int_0^{\pi/4}x\sin 2x\ dx\]
 ---
-Evaluate:
+Evaluate
 \[\int\frac{x+1}{\sqrt{3x^2+6x}}dx\]
 ---
-Evaluate:
+Evaluate
 \[\int\frac{1}{\cos\theta -1}d\theta\]
 ---
-Evaluate:
+Evaluate
 \[\int\frac{x^3e^{x^2}}{(x^2+1)^2}dx\]
 ---
-# Homework from section:
-#
-Evaluate:
+Evaluate
 \[\int x^2\ln 3x\ dx\]
+---
+# ==============================================================================
+# Problems from homework:
+Evaluate
+\[\int x^4\sin 2x\ dx\]
