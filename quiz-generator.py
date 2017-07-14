@@ -44,8 +44,8 @@ if args.randomize:
 
 content_quiz = ""
 content_answers = ""
-problem_pattern = "\n\\item[%d.] %s\n"
-answer_pattern = "\n\\item[%d.] \\textit{(%s)}\n%s\n"
+problem_pattern = "\n\\item[%d.]\n\n%s\n\\medskip\n"
+answer_pattern = "\n\\item[%d.] \\textit{(%s)}\\\\\n%s\n\\medskip\n"
 for i, val in enumerate(problems):
     content_quiz += problem_pattern % (i+1, val[1])
     if val[2]:
