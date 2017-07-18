@@ -4,15 +4,15 @@ define compile=
 	(cd ./out; pdflatex $2)
 endef
 
-all: exam02-review
+all: cumulative exam02
+
+cumulative:
+	$(call compile,"Cumulative Review",cumulative-review,./in/math-151/*)
 
 # Exam 2: Sections 8.1 to 8.8, Quizes 3 and 4
-exam02-review:
-	$(eval files=./in/{section-08-{01,02,03,04,05,06,08},quiz{03,04}}.qs)
+exam02:
+	$(eval files=./in/math-151/{section-08-{01,02,03,04,05,06,08},quiz{03,04},exam02-studyguide}.qs)
 	$(call compile,"Exam 2 Review",exam02-review,$(files))
-define readme_append=
-echo -e $(1) >> README.md
-endef
 
 .PHONY: h help clean
 

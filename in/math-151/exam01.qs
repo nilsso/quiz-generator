@@ -1,3 +1,5 @@
+::: Exam 1
+# 1
 Find the exact value of the function
 \[\arcsin\left(-\frac{\sqrt{2}}{2}\right)\]
 ---
@@ -41,7 +43,7 @@ Find the general solution of the equation. Express the solution explicitly as a 
 \[e^{9t}y'(t)=-2\]
 ---
 A conservation organization releases 40 coyotes into a preserve. After 4 years, there are 70 coyotes in the preserve. The preserve has a carrying capacity of 175.
-\begin{enumerate}[label=\alph*)]
+\begin{enumerate}
 \item Write a logistic function that models the population, \(P(t)\), of coyotoes in the preserve.
 \item Use your answer from (a) to find \(\displaystyle\lim_{t\to\infty}P(t)\)
 \end{enumerate}

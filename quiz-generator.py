@@ -55,6 +55,7 @@ header=r"""\documentclass[fleqn]{article}
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{multicol}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{resizegather}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}

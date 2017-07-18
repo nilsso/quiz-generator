@@ -1,3 +1,4 @@
+::: Section 8.1
 Evaluate
 \[\int{\frac{4x+1}{x^2+9}}dx\]
 ---

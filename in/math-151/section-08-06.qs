@@ -1,3 +1,4 @@
+::: Section 8.6
 # ==============================================================================
 # Problems from handout:
 # 1.
@@ -7,7 +8,6 @@ using the reduction formula
 \begin{gather*}
 \int x^n\ln u\ du=\frac{u^{n+1}}{(n+1)^2}(-1+(n+1)\ln u)+C,n\neq -1
 \end{gather*}
-
 ---
 # 2.
 Evaluate
