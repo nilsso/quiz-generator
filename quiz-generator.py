@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+
+# TODO:
+# - Fix bad-boxes from minipages
+#   (https://tex.stackexchange.com/questions/199635/underfull-hbox-badness-10000-message#199638)
+
 import re
 import sys
 import random
@@ -83,12 +88,12 @@ footer=r"""
 args.output.write(
         header+
         "\\section*{"+args.title+" (Problems)}\n"+
-        "\\begin{multicols}{2}\n"+
+        "\\begin{multicols*}{2}\n"+
         "\\begin{itemize}\n"+content_quiz+"\\end{itemize}\n"+
-        "\\end{multicols}\n"+
+        "\\end{multicols*}\n"+
         "\\newpage\n"+
         "\\section*{"+args.title+" (Answers)}\n"+
-        "\\begin{multicols}{2}\n"+
+        "\\begin{multicols*}{2}\n"+
         "\\begin{itemize}\n"+content_answers+"\\end{itemize}\n"+
-        "\\end{multicols}"+
+        "\\end{multicols*}"+
         footer)

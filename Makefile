@@ -4,15 +4,21 @@ define compile=
 	(cd ./out; pdflatex $2)
 endef
 
-all: cumulative exam02
+all: cumulative exam02 exam03
 
 cumulative:
-	$(call compile,"Cumulative Review",cumulative-review,./in/math-151/*)
+	$(eval files=./in/math-151/*)
+	$(call compile,"Cumulative Review",cumulative-review,$(files))
 
 # Exam 2: Sections 8.1 to 8.8, Quizes 3 and 4
 exam02:
 	$(eval files=./in/math-151/{section-08-{01,02,03,04,05,06,08},quiz{03,04},exam02-studyguide}.qs)
 	$(call compile,"Exam 2 Review",exam02-review,$(files))
+
+# Exam 3: Sections 9.1 to 9.4, Quizes 5 and 6
+exam03:
+	$(eval files=./in/math-151/section-09-01-3.qs)
+	$(call compile,"Exam 3 Review",exam03-review,$(files))
 
 .PHONY: h help clean
 
