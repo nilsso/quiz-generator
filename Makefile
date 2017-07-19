@@ -1,6 +1,6 @@
 define compile=
 	mkdir -p ./out
-	python ./quiz-generator.py -t $1 -o ./out/$2.tex -r $3
+	python ./quiz-generator.py -t $1 -o ./out/$2.tex $3
 	(cd ./out; pdflatex $2)
 endef
 
@@ -17,7 +17,7 @@ exam02:
 
 # Exam 3: Sections 9.1 to 9.4, Quizes 5 and 6
 exam03:
-	$(eval files=./in/math-151/section-09-01-3.qs)
+	$(eval files=./in/math-151/{section-09-01-03,quiz05}.qs)
 	$(call compile,"Exam 3 Review",exam03-review,$(files))
 
 .PHONY: h help clean

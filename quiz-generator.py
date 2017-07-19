@@ -49,8 +49,8 @@ if args.randomize:
 
 content_quiz = ""
 content_answers = ""
-problem_pattern = "\n\\item[%d.]\n\n%s\n\\medskip\n"
-answer_pattern = "\n\\item[%d.] \\textit{(%s)}\\\\\n%s\n\\medskip\n"
+problem_pattern = "\n\\item[%d.]\n\n%s\n\\smallskip\n"
+answer_pattern = "\n\\item[%d.] \\textit{(%s)}\n\n%s\n\\smallskip\n"
 for i, val in enumerate(problems):
     content_quiz += problem_pattern % (i+1, val[1])
     if val[2]:
@@ -62,6 +62,9 @@ header=r"""\documentclass[fleqn]{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{resizegather}
+\usepackage{xfrac}
+\usepackage{lmodern}
+\usepackage{textcomp}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \setlength{\parindent}{0pt}
