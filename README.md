@@ -14,9 +14,13 @@ Requires [Python][1] to be ran, and requires [LaTeX][2] to compile the output in
 
 ## Calculus 2 content
 
-- [Exam 2 review](./out/exam02-review.pdf)
-- [Exam 3 review](./out/exam03-review.pdf)
-- [Cumulative review](./out/cumulative.pdf)
+- [Exam 2 review][3]
+- [Exam 3 review][4]
+- [Cumulative review][5]
+
+[3]: https://cdn.rawgit.com/SweedJesus/quiz-generator/7c595c6c/out/exam02-review.pdf
+[4]: https://cdn.rawgit.com/SweedJesus/quiz-generator/7c595c6c/out/exam03-review.pdf
+[5]: https://cdn.rawgit.com/SweedJesus/quiz-generator/7c595c6c/out/cumulative-review.pdf
 
 # Specifications
 
