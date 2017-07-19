@@ -12,6 +12,14 @@ Requires [Python][1] to be ran, and requires [LaTeX][2] to compile the output in
 [1]: https://www.python.org
 [2]: https://www.latex-project.org/get
 
+## Calculus 2 content
+
+- [Exam 2 review](./out/exam02-review.pdf)
+- [Exam 3 review](./out/exam03-review.pdf)
+- [Cumulative review](./out/cumulative.pdf)
+
+# Specifications
+
 ## Problem/Answer files
 
 Input files have the suffix .qs (although the program ultimately doesn't care)
