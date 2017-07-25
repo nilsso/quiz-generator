@@ -29,7 +29,7 @@ Requires [Python][1] to be ran, and requires [LaTeX][2] to compile the output in
 Input files contain only LaTeX content but are expected contain a line stating
 the source name, and multiple problems and answer pairs delimited by these
 sequences:
-- `#` Designates a comment (line that is ignored)
+- `%` Designates a comment (line that is ignored)
 - `:::` Designates the source name
 - `---` Separates problem/answer pairs
 - `===` Separates a problem from it's answer
