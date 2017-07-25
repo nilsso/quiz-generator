@@ -35,7 +35,7 @@ if args.input:
         with open(_path, "r") as _file:
             _content = "\n".join([
                 l for l in
-                _file.read().splitlines() if l and l[0] != '#'])
+                _file.read().splitlines() if l and l[0] != '%'])
             _match = pattern.search(_content)
             _source = _match and _match.group(1) or "Unknown"
             _content = pattern.sub("", _content)
