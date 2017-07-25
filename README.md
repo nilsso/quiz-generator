@@ -26,9 +26,9 @@ Requires [Python][1] to be ran, and requires [LaTeX][2] to compile the output in
 
 ## Problem/Answer files
 
-Input files have the suffix .qs (although the program ultimately doesn't care)
-and contain a line stating the source name, and multiple problems and answer
-pairs. Specifically:
+Input files contain only LaTeX content but are expected contain a line stating
+the source name, and multiple problems and answer pairs delimited by these
+sequences:
 - `#` Designates a comment (line that is ignored)
 - `:::` Designates the source name
 - `---` Separates problem/answer pairs
