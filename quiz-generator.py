@@ -49,12 +49,17 @@ if args.randomize:
 
 content_quiz = ""
 content_answers = ""
-problem_pattern = "\n\\item[%d.]\n\n%s\n\\smallskip\n"
-answer_pattern = "\n\\item[%d.] \\textit{(%s)}\n\n%s\n\\smallskip\n"
+problem_pattern = ("\n\\item[\\hyperlink{{{0}-answer}}{{{0}}}.]"
+        "\\hypertarget{{{0}-problem}}{{}}\n\n"
+        "{1}\n\\smallskip\n")
+answer_pattern = ("\n\\item[\\hyperlink{{{0}-problem}}{{{0}}}.]"
+        "\\hypertarget{{{0}-answer}}{{}}"
+        "\\textit{{({1})}}\n\n"
+        "{2}\n\\smallskip\n")
 for i, val in enumerate(problems):
-    content_quiz += problem_pattern % (i+1, val[1])
+    content_quiz += problem_pattern.format(i+1, val[1])
     if val[2]:
-        content_answers += answer_pattern % (i+1, val[0], val[2])
+        content_answers += answer_pattern.format(i+1, val[0], val[2])
 
 header=r"""\documentclass[fleqn]{article}
 \usepackage[a4paper,margin=1in]{geometry}
@@ -67,6 +72,7 @@ header=r"""\documentclass[fleqn]{article}
 \usepackage{textcomp}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
+\usepackage{hyperref}
 \setlength{\parindent}{0pt}
 \setlength{\mathindent}{0pt}
 \setlength{\delimitershortfall}{0pt}
