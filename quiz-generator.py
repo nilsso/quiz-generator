@@ -68,6 +68,8 @@ header=r"""\documentclass[fleqn]{article}
 \usepackage{amssymb}
 \usepackage{resizegather}
 \usepackage{xfrac}
+\usepackage{nth}
+\usepackage{tikz}
 \usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage[utf8]{inputenc}

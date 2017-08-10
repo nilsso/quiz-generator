@@ -17,7 +17,7 @@ exam02:
 
 # Exam 3: Sections 9.1 to 9.4, Quizes 5 and 6
 exam03:
-	$(eval files=./in/math-151/{section-{09.01-03,09.04-10.01},quiz{05,06},exam03-studyguide}.tex)
+	$(eval files=./in/math-151/{section-{09.01-03,09.04-05,10.01},quiz{05,06},exam03-studyguide}.tex)
 	$(call compile,"Exam 3 Review",exam03-review,$(files))
 
 .PHONY: h help clean
