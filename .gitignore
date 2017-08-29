@@ -1,6 +1,5 @@
 *.sw*
 *.aux
 *.log
-*.tex
 *.pdf
 out
